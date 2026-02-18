@@ -1,7 +1,4 @@
-## Arrumar o readme.md com as informações do projeto, como rodar, etc.
-## npm start no backend e roda o resto pelo Visual Studio
-
-TeambookMM
+## TeambookMM
 Um projeto simples para inserir nomes, email e número de telefone de membros da equipe.
 
 Usa Angular para o frontend e Node.js com Express para o backend, armazenando os dados em um arquivo JSON.
