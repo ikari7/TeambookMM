@@ -1,14 +1,12 @@
-/* RESET SUAVE */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Fundo geral */
 .page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: linear-gradient(135deg, #cb3539, #ff5757);
   padding: 40px 20px;
   font-family: 'Segoe UI', Arial, sans-serif;
   display: flex;
@@ -17,7 +15,6 @@
   gap: 30px;
 }
 
-/* Cards principais */
 .card-form,
 .card-list {
   background: white;
@@ -29,23 +26,21 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Títulos */
 h1 {
   text-align: center;
   margin-bottom: 25px;
-  color: #1e3c72;
+  color: #e52025;
   font-size: 26px;
   font-weight: 700;
 }
 
 h2 {
   margin-bottom: 15px;
-  color: #2a5298;
+  color: #e52025;
   font-size: 20px;
   font-weight: 600;
 }
 
-/* Formulário */
 .form {
   display: flex;
   flex-direction: column;
@@ -67,32 +62,30 @@ label {
 input {
   padding: 12px 14px;
   border-radius: 10px;
-  border: 2px solid #e0e3eb;
-  transition: all 0.25s ease;
+  border: 2px solid #f2baba;
+  background: #fff;
   font-size: 14px;
-  background: #fafbff;
+  transition: all 0.25s ease;
 }
 
   input::placeholder {
-    color: #9aa3b2;
+    color: #e52025;
   }
 
   input:focus {
     outline: none;
-    border-color: #2a5298;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.15);
+    border-color: #e52025;
+    box-shadow: 0 0 0 3px rgba(229, 32, 37, 0.15);
+    background: white;
   }
 
-/* Validações */
 .erro {
-  color: #e53935;
+  color: #e52025;
   font-size: 12px;
   font-weight: 500;
   margin-top: 2px;
 }
 
-/* Container dos botões */
 .botoes-form {
   display: flex;
   gap: 12px;
@@ -100,55 +93,40 @@ input {
   flex-wrap: wrap;
 }
 
-/* Botão principal */
 .btn {
   flex: 1;
   min-width: 140px;
   padding: 12px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  background: #e52025;
   color: white;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 6px 15px rgba(42, 82, 152, 0.3);
+  box-shadow: 0 6px 15px rgba(229, 32, 37, 0.3);
+  transition: none;
 }
 
-  .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(42, 82, 152, 0.4);
-  }
-
   .btn:disabled {
-    background: #b0b7c3;
+    background: #f2baba;
     cursor: not-allowed;
-    transform: none;
     box-shadow: none;
   }
 
-/* Botão cancelar */
 .btn-cancelar {
   flex: 1;
   min-width: 140px;
   padding: 12px;
   border-radius: 12px;
-  border: 2px solid #e53935;
+  border: 2px solid #e52025;
   background: white;
-  color: #e53935;
+  color: #e52025;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: none;
 }
 
-  .btn-cancelar:hover {
-    background: #e53935;
-    color: white;
-    transform: translateY(-2px);
-  }
-
-/* Header da lista */
 .header-list {
   display: flex;
   justify-content: space-between;
@@ -158,68 +136,64 @@ input {
   margin-bottom: 15px;
 }
 
-/* Campo de busca */
 .busca {
   max-width: 250px;
   padding: 10px 14px;
   border-radius: 10px;
-  border: 2px solid #e0e3eb;
-  transition: 0.25s;
+  border: 2px solid #f2baba;
+  background: white;
+  transition: none;
 }
 
   .busca:focus {
     outline: none;
-    border-color: #2a5298;
-    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.15);
+    border-color: #e52025;
+    box-shadow: 0 0 0 3px rgba(229, 32, 37, 0.15);
   }
 
-/* Lista */
+/*Listagem*/
 .grid {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Card de pessoa */
 .person-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f4f6fb;
+  background: #fff5f5;
   border-radius: 14px;
   padding: 18px;
-  transition: all 0.2s ease;
   gap: 15px;
 }
 
   .person-card:hover {
     transform: scale(1.01);
-    background: #eef2ff;
+    background: #ffeaea;
   }
 
-/* Avatar */
 .avatar {
   min-width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  background: #e52025;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 18px;
-  box-shadow: 0 4px 10px rgba(42, 82, 152, 0.3);
+  box-shadow: 0 4px 10px rgba(229, 32, 37, 0.3);
 }
 
-/* Informações */
 .info {
   flex: 1;
 }
 
   .info h3 {
     margin: 0;
-    color: #1e3c72;
+    color: #e52025;
     font-size: 18px;
   }
 
@@ -229,58 +203,41 @@ input {
     font-size: 14px;
   }
 
-/* Container de ações */
 .acoes {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-/* Botão editar */
 .edit-btn {
-  background: #f1c40f;
+  background: #ffbaba;
   border: none;
-  color: #333;
+  color: #e52025;
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.2s;
 }
 
-  .edit-btn:hover {
-    background: #d4ac0d;
-    transform: translateY(-1px);
-  }
-
-/* Botão excluir */
 .delete-btn {
-  background: #e53935;
+  background: #e52025;
   border: none;
   color: white;
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: 0.2s;
 }
 
-  .delete-btn:hover {
-    background: #c62828;
-    transform: translateY(-1px);
-  }
-
-/* Estado vazio */
 .empty {
   text-align: center;
   color: #777;
   padding: 25px;
   font-style: italic;
-  background: #f8f9ff;
+  background: #ffeaea;
   border-radius: 12px;
 }
 
-/* Responsividade */
 @media (max-width: 600px) {
   .card-form,
   .card-list {
@@ -306,3 +263,59 @@ input {
     justify-content: flex-end;
   }
 }
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+  .paginacao .paginas {
+    display: flex;
+    gap: 8px;
+  }
+
+  .paginacao .numero-pagina {
+    border: none;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: white;
+    color: #e52025;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    transition: none;
+  }
+
+    .paginacao .numero-pagina.ativa {
+      background: #e52025;
+      color: white;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+  .paginacao .page-btn.anterior,
+  .paginacao .page-btn.proxima {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #e52025;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transition: none;
+  }
+
+    .paginacao .page-btn.anterior:disabled,
+    .paginacao .page-btn.proxima:disabled {
+      background: #f2baba;
+      color: white;
+      cursor: not-allowed;
+      box-shadow: none;
+    }

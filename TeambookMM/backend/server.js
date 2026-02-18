@@ -6,17 +6,15 @@ const path = require('path');
 const app = express();
 const PORT = 4200;
 
-// Middlewares
+
 app.use(cors());
 app.use(express.json());
 
-// Banco NeDB (arquivo persistente)
 const db = new Datastore({
   filename: path.join(__dirname, 'database', 'pessoas.db'),
   autoload: true
 });
 
-// LISTAR todas as pessoas
 app.get('/api/pessoas', (req, res) => {
   db.find({}, (err, docs) => {
     if (err) {
@@ -27,7 +25,6 @@ app.get('/api/pessoas', (req, res) => {
   });
 });
 
-// CADASTRAR pessoa
 app.post('/api/pessoas', (req, res) => {
   const pessoa = req.body;
 
@@ -44,7 +41,6 @@ app.post('/api/pessoas', (req, res) => {
   });
 });
 
-// ATUALIZAR pessoa 
 app.put('/api/pessoas/:id', (req, res) => {
   const id = req.params.id;
   const pessoaAtualizada = req.body;
@@ -74,7 +70,6 @@ app.put('/api/pessoas/:id', (req, res) => {
   );
 });
 
-// REMOVER pessoa
 app.delete('/api/pessoas/:id', (req, res) => {
   const id = req.params.id;
 

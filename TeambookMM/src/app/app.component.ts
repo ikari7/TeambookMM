@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   pessoas: Pessoa[] = [];
   pessoasFiltradas: Pessoa[] = [];
+  pessoasPaginadas: Pessoa[] = [];
 
   pessoa: Pessoa = {
     nome: '',
@@ -23,8 +24,14 @@ export class AppComponent implements OnInit {
   };
 
   modoEdicao: boolean = false;
-  busca: string = '';
   carregando: boolean = false;
+  busca: string = '';
+
+  ordem: 'asc' | 'desc' = 'asc';
+
+  paginaAtual: number = 1;
+  itensPorPagina: number = 5;
+  totalPaginas: number = 1;
 
   constructor(
     private pessoaService: PessoaService,
@@ -41,7 +48,7 @@ export class AppComponent implements OnInit {
     this.pessoaService.listar().subscribe({
       next: (data) => {
         this.pessoas = data;
-        this.atualizarFiltro();
+        this.filtrar();
         this.carregando = false;
         this.cdr.detectChanges();
       },
@@ -118,8 +125,60 @@ export class AppComponent implements OnInit {
   }
 
   filtrar() {
-    this.atualizarFiltro();
+    const termo = this.busca.toLowerCase();
+
+    this.pessoasFiltradas = this.pessoas.filter(p =>
+      p.nome.toLowerCase().includes(termo)
+    );
+
+    this.ordenarInterno();
+
+    this.paginaAtual = 1;
+
+    this.atualizarPaginacao();
   }
+
+  ordenar() {
+    this.ordenarInterno();
+    this.atualizarPaginacao();
+  }
+
+  private ordenarInterno() {
+    this.pessoasFiltradas.sort((a, b) => {
+      const nomeA = a.nome.toLowerCase();
+      const nomeB = b.nome.toLowerCase();
+
+      if (this.ordem === 'asc') {
+        return nomeA.localeCompare(nomeB);
+      } else {
+        return nomeB.localeCompare(nomeA);
+      }
+    });
+  }
+
+  atualizarPaginacao() {
+    this.totalPaginas = Math.ceil(this.pessoasFiltradas.length / this.itensPorPagina) || 1;
+
+    const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+    const fim = inicio + this.itensPorPagina;
+
+    this.pessoasPaginadas = this.pessoasFiltradas.slice(inicio, fim);
+  }
+
+  proximaPagina() {
+    if (this.paginaAtual < this.totalPaginas) {
+      this.paginaAtual++;
+      this.atualizarPaginacao();
+    }
+  }
+
+  paginaAnterior() {
+    if (this.paginaAtual > 1) {
+      this.paginaAtual--;
+      this.atualizarPaginacao();
+    }
+  }
+
 
   atualizarFiltro() {
     const termo = (this.busca || '').toLowerCase().trim();

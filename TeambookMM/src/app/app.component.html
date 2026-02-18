@@ -1,6 +1,5 @@
 <div class="page">
 
-  <!-- FORMULÁRIO -->
   <div class="card-form">
     <h1>{{ modoEdicao ? 'Editar Pessoa' : 'Cadastro de Pessoas' }}</h1>
 
@@ -85,7 +84,6 @@
 
   </div>
 
-  <!-- LISTA -->
   <div class="card-list">
     <div class="header-list">
       <h2>Pessoas Cadastradas</h2>
@@ -95,14 +93,19 @@
              placeholder="🔍 Buscar por nome..."
              [(ngModel)]="busca"
              (input)="filtrar()" />
+
+      <select [(ngModel)]="ordem" (change)="ordenar()">
+        <option value="asc">Nome A-Z</option>
+        <option value="desc">Nome Z-A</option>
+      </select>
     </div>
 
-    <div *ngIf="pessoasFiltradas.length === 0" class="empty">
+    <div *ngIf="pessoasPaginadas.length === 0" class="empty">
       Nenhuma pessoa encontrada.
     </div>
 
     <div class="grid">
-      <div *ngFor="let p of pessoasFiltradas" class="person-card">
+      <div *ngFor="let p of pessoasPaginadas" class="person-card">
 
         <div class="avatar">
           {{ p.nome.charAt(0) | uppercase }}
@@ -126,6 +129,17 @@
 
       </div>
     </div>
-  </div>
 
+    <div class="paginacao" *ngIf="totalPaginas > 1">
+      <button class = "page-btn anterior" (click)="paginaAnterior()" [disabled]="paginaAtual === 1">
+        ◀ Anterior
+      </button>
+
+      <span>Página {{ paginaAtual }} de {{ totalPaginas }}</span>
+
+      <button class = "page-btn proxima" (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">
+        Próxima ▶
+      </button>
+    </div>
+  </div>
 </div>
