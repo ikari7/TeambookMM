@@ -1,0 +1,6 @@
+export interface Pessoa {
+  _id?: string;
+  nome: string;
+  email: string;
+  telefone: string;
+}

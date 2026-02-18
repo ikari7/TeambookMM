@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/core": "^21.1.4",
+    "@seald-io/nedb": "^4.1.2"
+  }
+}

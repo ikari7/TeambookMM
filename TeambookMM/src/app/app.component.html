@@ -1,0 +1,95 @@
+<div class="page">
+
+  <!-- FORMULÁRIO -->
+  <div class="card-form">
+    <h1>{{ modoEdicao ? 'Editar Pessoa' : 'Cadastro de Pessoas' }}</h1>
+
+    <form #form="ngForm" (ngSubmit)="salvar()" class="form">
+
+      <div class="input-group">
+        <label>Nome</label>
+        <input type="text"
+               placeholder="Digite o nome"
+               [(ngModel)]="pessoa.nome"
+               name="nome"
+               required />
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email"
+               placeholder="exemplo@email.com"
+               [(ngModel)]="pessoa.email"
+               name="email"
+               required />
+      </div>
+
+      <div class="input-group">
+        <label>Telefone</label>
+        <input type="text"
+               placeholder="(00) 00000-0000"
+               [(ngModel)]="pessoa.telefone"
+               name="telefone"
+               required />
+      </div>
+
+      <div class="botoes-form">
+        <button type="submit" class="btn" [disabled]="form.invalid">
+          {{ modoEdicao ? 'Atualizar' : 'Cadastrar' }}
+        </button>
+
+        <button type="button"
+                class="btn-cancelar"
+                *ngIf="modoEdicao"
+                (click)="cancelarEdicao()">
+          ❌ Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- LISTA -->
+  <div class="card-list">
+    <div class="header-list">
+      <h2>Pessoas Cadastradas</h2>
+
+      <input type="text"
+             class="busca"
+             placeholder="🔍 Buscar por nome..."
+             [(ngModel)]="busca"
+             (input)="filtrar()" />
+    </div>
+
+    <div *ngIf="pessoasFiltradas.length === 0" class="empty">
+      Nenhuma pessoa encontrada.
+    </div>
+
+    <div class="grid">
+      <div *ngFor="let p of pessoasFiltradas" class="person-card">
+
+        <div class="avatar">
+          {{ p.nome.charAt(0) | uppercase }}
+        </div>
+
+        <div class="info">
+          <h3>{{ p.nome }}</h3>
+          <p>📧 {{ p.email }}</p>
+          <p>📞 {{ p.telefone }}</p>
+        </div>
+
+        <div class="acoes">
+          <button class="edit-btn" (click)="editar(p)">
+            ✏️ Editar
+          </button>
+
+          <button class="delete-btn" (click)="excluir(p._id!)">
+            🗑 Excluir
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
