@@ -12,7 +12,18 @@
                placeholder="Digite o nome"
                [(ngModel)]="pessoa.nome"
                name="nome"
+               #nome="ngModel"
+               pattern="^[A-Za-zÀ-ÿ\s]+$"
                required />
+
+        <small class="erro" *ngIf="nome.invalid && nome.touched">
+          <span *ngIf="nome.errors?.['required']">
+            O nome é obrigatório.
+          </span>
+          <span *ngIf="nome.errors?.['pattern']">
+            O nome deve conter apenas letras.
+          </span>
+        </small>
       </div>
 
       <div class="input-group">
@@ -21,7 +32,18 @@
                placeholder="exemplo@email.com"
                [(ngModel)]="pessoa.email"
                name="email"
+               #email="ngModel"
+               email
                required />
+
+        <small class="erro" *ngIf="email.invalid && email.touched">
+          <span *ngIf="email.errors?.['required']">
+            O email é obrigatório.
+          </span>
+          <span *ngIf="email.errors?.['email']">
+            Email inválido.
+          </span>
+        </small>
       </div>
 
       <div class="input-group">
@@ -30,11 +52,24 @@
                placeholder="(00) 00000-0000"
                [(ngModel)]="pessoa.telefone"
                name="telefone"
+               #telefone="ngModel"
+               (input)="aplicarMascaraTelefone()"
+               maxlength="15"
                required />
+
+        <small class="erro"
+               *ngIf="telefone.touched && !telefoneValido()">
+          O telefone deve estar no formato (00) 00000-0000
+        </small>
       </div>
 
+
+
       <div class="botoes-form">
-        <button type="submit" class="btn" [disabled]="form.invalid">
+        <button type="submit"
+                class="btn"
+                [disabled]="form.invalid || !telefoneValido()">
+
           {{ modoEdicao ? 'Atualizar' : 'Cadastrar' }}
         </button>
 
@@ -47,6 +82,7 @@
       </div>
 
     </form>
+
   </div>
 
   <!-- LISTA -->

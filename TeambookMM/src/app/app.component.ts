@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PessoaService } from './services/pessoa.service';
@@ -26,7 +26,11 @@ export class AppComponent implements OnInit {
   busca: string = '';
   carregando: boolean = false;
 
-  constructor(private pessoaService: PessoaService) { }
+  constructor(
+    private pessoaService: PessoaService,
+    private cdr: ChangeDetectorRef
+  ) { }
+
 
   ngOnInit(): void {
     this.carregarPessoas();
@@ -39,6 +43,7 @@ export class AppComponent implements OnInit {
         this.pessoas = data;
         this.atualizarFiltro();
         this.carregando = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Erro ao carregar pessoas:', err);
@@ -53,10 +58,14 @@ export class AppComponent implements OnInit {
       return;
     }
 
+    if (!this.telefoneValido()) {
+      alert('Telefone inválido! Use o formato (00) 00000-0000');
+      return;
+    }
+
     this.carregando = true;
 
     if (this.modoEdicao && this.pessoa._id) {
-      // UPDATE (NeDB)
       this.pessoaService.atualizar(this.pessoa).subscribe({
         next: () => {
           this.cancelarEdicao();
@@ -68,7 +77,6 @@ export class AppComponent implements OnInit {
         }
       });
     } else {
-      // CREATE (NeDB)
       this.pessoaService.cadastrar(this.pessoa).subscribe({
         next: () => {
           this.cancelarEdicao();
@@ -81,6 +89,7 @@ export class AppComponent implements OnInit {
       });
     }
   }
+
 
   editar(p: Pessoa) {
     this.pessoa = { ...p };
@@ -113,9 +122,41 @@ export class AppComponent implements OnInit {
   }
 
   atualizarFiltro() {
-    const termo = this.busca.toLowerCase();
+    const termo = (this.busca || '').toLowerCase().trim();
+
+    if (!termo) {
+      this.pessoasFiltradas = [...this.pessoas];
+      return;
+    }
+
     this.pessoasFiltradas = this.pessoas.filter(p =>
       p.nome.toLowerCase().includes(termo)
     );
   }
+
+  aplicarMascaraTelefone() {
+    if (!this.pessoa.telefone) return;
+
+    let numeros = this.pessoa.telefone.replace(/\D/g, '');
+
+    numeros = numeros.substring(0, 11);
+
+    if (numeros.length <= 2) {
+      this.pessoa.telefone = `(${numeros}`;
+    }
+    else if (numeros.length <= 7) {
+      this.pessoa.telefone = `(${numeros.substring(0, 2)}) ${numeros.substring(2)}`;
+    }
+    else {
+      this.pessoa.telefone = `(${numeros.substring(0, 2)}) ${numeros.substring(2, 7)}-${numeros.substring(7, 11)}`;
+    }
+  }
+
+  telefoneValido(): boolean {
+    if (!this.pessoa.telefone) return false;
+
+    const regex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+    return regex.test(this.pessoa.telefone);
+  }
+
 }
